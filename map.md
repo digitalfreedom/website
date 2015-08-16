@@ -6,7 +6,9 @@ permalink: /map/
 
 <h1>Map</h1>
 
-<p>Select a country to get an overview of information available.</p>
+<div class="alert alert-info"><b>Please notice</b>: this website is under development. More information on the project and additional pages will follow in the next days.</div>
+
+<p>This map allows you get an overview and browse through the data that is being collaboratively collected on surveillance, privacy, and digital threats to civil society. Click on a country to get an overview of the available information.</p>
 
 <center><div id="map" style="position: relative; width: 100%; height: 600px;"></div></center>
 
