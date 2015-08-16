@@ -18,7 +18,7 @@ permalink: /map/
             <h4 class="modal-title">{{country}}</h4>
         </div>
         <div class="modal-body">
-            <p>We have records for {{number}} targeted attack/s in {{country}}, using {{list of unique "family" names}}.</p>
+            <p>We have records for {{number}} targeted attack/s in {{country}}, using the following malware families {{list of unique "family" names}}.</p>
             <p>We have records for {{number}} surveillance vendors in {{country}}.</p>
             <p>We have records for {{number}} surveillance resellers in {{country}}.</p>
             <hr />
