@@ -1,5 +1,7 @@
 ---
 layout: default
+title: Map
+permalink: /map/
 ---
 
 <script src="{{ "/js/jquery-2.1.4.min.js" | prepend : site.baseurl }}"></script>
