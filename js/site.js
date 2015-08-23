@@ -18,7 +18,7 @@ var getPackageCallback = function(response) {
 var getPackages = function() {
   _.each(datasets, function(package, key) {
     $.ajax({
-      url: 'http://dev:8888/' + package,
+      url: '/api/' + package,
       crossDomain: true,
       dataType: "jsonp",
       jsonp: 'callback',
