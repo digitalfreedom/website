@@ -1,10 +1,8 @@
 ---
-layout: default
+layout: page
 title: Contribute
 permalink: /contribute/
 ---
-
-# Contribute
 
 We warmly welcome help and contributions, we want the Digitial Freedom Alliance to be a collaboration and diverse community effort, not something created & controlled by a small group. Currently, we are unfunded and doing this as a labor of love. Our mission is to create resources and tools to help better understand digital threats against civil society and we are figuring out the shape of it as we go iteratively. There are a few ways you can help contribute. The primary contributors are most likely to be activists, journalists, NGOs, human rights workers, policy wonks, hackers, publishing organizations, academics, and security researchers.
 
