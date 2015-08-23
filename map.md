@@ -46,8 +46,8 @@ permalink: /map/
 <script id="view-targetedthreats" type="text/template">
   <li>
     <% if (date) { %><strong>Date</strong>: <%= date %><br><% } %>
-    <% if (md5) { %><strong>md5</strong>: <%= md5 %><br><% } %>
-    <% if (c2) { %><strong>c2</strong>: <%= c2 %></strong><br><% } %>
+    <% if (md5) { %><strong>MD5</strong>: <%= md5 %><br><% } %>
+    <% if (c2) { %><strong>Command &amp; Control</strong>: <%= c2 %></strong><br><% } %>
     <% if (family) { %><strong>Family</strong>: <%= family %><br><% } %>
     <% if (target) { %><strong>Target</strong>: <%= target %><br><% } %>
     <% if (reference) { %><a href="<%= reference %>" target="_blank">Reference</a><% } %>
