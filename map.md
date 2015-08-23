@@ -11,34 +11,34 @@ permalink: /map/
 <center><div id="map" style="position: relative; width: 100%; height: 600px;"></div></center>
 
 <div class="modal fade" id="modal">
-    <div class="modal-dialog">
+  <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Syria</h4>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Syria</h4>
+      </div>
+      <div class="modal-body">
+        <ul id="country-tabs" class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#targetedthreats" aria-controls="targetedthreats" role="tab" data-toggle="tab">Targeted Threats</a></li>
+          <li role="presentation"><a href="#vendors" aria-controls="vendors" role="tab" data-toggle="tab">Vendors</a></li>
+          <li role="presentation"><a href="#resellers" aria-controls="resellers" role="tab" data-toggle="tab">Resellers</a></li>
+          <li role="presentation"><a href="#encryptionlaws" aria-controls="encryptionlaws" role="tab" data-toggle="tab">Encryption Laws</a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="targetedthreats">
+            <h4>Loading Targeted Threats...</h4>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="vendors">
+            <h4>Loading Vendors...</h4>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="resellers">
+            <h4>Loading Resellers...</h4>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="encryptionlaws">
+            <h4>Loading Encryption Laws...</h4>
+          </div>
         </div>
-        <div class="modal-body">
-            <ul id="country-tabs" class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a href="#targetedthreats" aria-controls="targetedthreats" role="tab" data-toggle="tab">Targeted Threats</a></li>
-              <li role="presentation"><a href="#vendors" aria-controls="vendors" role="tab" data-toggle="tab">Vendors</a></li>
-              <li role="presentation"><a href="#resellers" aria-controls="resellers" role="tab" data-toggle="tab">Resellers</a></li>
-              <li role="presentation"><a href="#encryptionlaws" aria-controls="encryptionlaws" role="tab" data-toggle="tab">Encryption Laws</a></li>
-            </ul>
-            <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="targetedthreats">
-                <h4>Loading Targeted Threats...</h4>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="vendors">
-                <h4>Loading Vendors...</h4>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="resellers">
-                <h4>Loading Resellers...</h4>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="encryptionlaws">
-                <h4>Loading Encryption Laws...</h4>
-              </div>
-            </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>

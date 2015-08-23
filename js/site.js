@@ -60,7 +60,7 @@ $(document).ready(function() {
         backgroundColor: '#ffffff',
         regionStyle: {
             initial: {
-                fill: 'grey',
+                fill: '#18bc9c',
                 "fill-opacity": 1,
                 stroke: 'none',
                 "stroke-width": 0,
