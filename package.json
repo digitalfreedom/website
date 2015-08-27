@@ -1,0 +1,25 @@
+{
+  "name": "digital-freedom",
+  "version": "0.1.0",
+  "description": "a project to share data about the surveillance state",
+  "main": "index.js",
+  "dependencies": {
+    "backbone": "~1.2.1",
+    "underscore": "~1.8.3",
+    "jquery": "~2.1.4",
+    "datatables": "~1.10.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/digitalfreedom/website"
+  },
+  "author": "",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/digitalfreedom/website/issues"
+  }
+}
