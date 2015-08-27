@@ -1,0 +1,26 @@
+---
+layout: default
+title: Datasets
+permalink: /datasets/
+---
+
+<h1>Our Datasets</h1>
+
+<p>The datapackges listed here are the data based on <a href="http://dataprotocols.org">data protocols</a> that was created by the Open Knowledge Foundation. Our datasets will also included in their <a href="http://data.okfn.org/data">data package directory</a> eventually.</p>
+
+<ul id="datapackages"></ul>
+
+<hr>
+
+<strong>More on Data Packages</strong>
+
+<p>If you would like to learn more about creating data, OKFN has some <a href="http://data.okfn.org">easy to follow tutorials</a>
+
+<script id="view-datapackages" type="text/template">
+<li>
+  <h3><%= name %></h3>
+  <%= key %>
+  <p><%= description %></p>
+  <p><a href="<%= data_package %>" target="_blank">Browse Data</a> | <a href="<%= repository %>" target="_blank">Get Raw Data</a></p>
+</li>
+</script>
