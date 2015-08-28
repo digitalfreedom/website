@@ -119,6 +119,8 @@ $(document).on('click', '#show-datasets-toc', function(e) {
   $(this).addClass('hidden')
   datatable.destroy()
   $('#datatable').html('')
+  $('#datapackages-title').find('h1').html('Our Datasets')
+  $('#datapackages-title').find('p').html('')
   $('#datapackages-details').show()
   $('#datapackages').show()
 })
