@@ -4,23 +4,45 @@ title: Datasets
 permalink: /datasets/
 ---
 
-<h1>Our Datasets</h1>
+<div id="datapackages-title">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Our Datasets</h1>
+    </div>
+    <div class="col-md-2 text-right">
+      <br>
+      <button id="show-datasets-toc" class="btn btn-success btn-sm hidden">Back to List</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10"><p></p></div>
+  </div>
+</div>
 
-<p>The datapackges listed here are the data based on <a href="http://dataprotocols.org">data protocols</a> that was created by the Open Knowledge Foundation. Our datasets will also included in their <a href="http://data.okfn.org/data">data package directory</a> eventually.</p>
-
-<ul id="datapackages"></ul>
+<div id="datapackages-details">
+  <p>The datapackges listed here are full representations of the data you see on other parts of this website. The data is meant to be used however you there to be use cases. Some potential use cases are:</p>
+  <ul>
+    <li><strong>Search Terms</strong> - when searching through large data dumps</li>
+    <li><strong>A Glossary</strong> - of unusual terms that help provide context when researching</li>
+    <li><strong>Machine Readible</strong> - list of terms and/or malware identifiers to import</li>
+  </ul>
+</div>
 
 <hr>
 
-<strong>More on Data Packages</strong>
+<ul id="datapackages" class="list-unstyled"></ul>
+<table id="datatable" class="display" width="100%" cellspacing="0"></table>
 
-<p>If you would like to learn more about creating data, OKFN has some <a href="http://data.okfn.org">easy to follow tutorials</a>
+<hr>
+
+<h4>More on Data Packages</h4>
+
+<p>We hope that you will find these useful and that you will help <a href="/contribute/" target="_blank">contribute</a> to expand upon this data. The data is stored in CSV with a JSON schema as based on <a href="http://dataprotocols.org/json-table-schema/index.html">data protocols spec</a> created by the Open Knowledge Foundation. If you would like to learn more about creating data, OKFN has some <a href="http://data.okfn.org">easy to follow tutorials</a>
 
 <script id="view-datapackages" type="text/template">
 <li>
   <h3><%= name %></h3>
-  <%= key %>
   <p><%= description %></p>
-  <p><a href="<%= data_package %>" target="_blank">Browse Data</a> | <a href="<%= repository %>" target="_blank">Get Raw Data</a></p>
+  <p><a class="btn btn-success btn-xs show-dataset" href="#<%= data_package %>">Browse Data</a> <a class="btn btn-primary btn-xs" href="<%= repository %>" target="_blank">Get Raw Data</a></p>
 </li>
 </script>
