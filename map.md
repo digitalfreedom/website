@@ -66,7 +66,7 @@ permalink: /map/
 
 <script id="view-encryptionlaws" type="text/template">
   <li>
-    <% if (import) { %><strong>Import</strong>: <%= import %><br><% } %>
+    <% if (import_restrictions) { %><strong>Import</strong>: <%= import_restrictions %><br><% } %>
     <% if (prohibit_user) { %><strong>Prohibit Use</strong>: <%= prohibit_user %><br><% } %>
     <% if (license_use) { %><strong>License Use</strong>: <%= license_use %><br><% } %>
     <% if (provide_keys) { %><strpong>Provide Keys</strong>: <%= provide_keys %><% } %>
