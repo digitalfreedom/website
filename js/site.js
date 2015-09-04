@@ -9,6 +9,9 @@ var per_dataset = {};
 var package_facts = {};
 var active_package = null;
 
+// MAP VARIABLES (this should probably go into some magical style land)
+var defaultFill = '#d3d3d3'; // fill when no data is available
+
 function PackageFacts(name) {
   return {
     name: name,
@@ -79,7 +82,7 @@ var getPackage = function(facts) {
       facts.loadError = true;
     });
     res.always(function() {
-    	//todo final render
+    //todo: final render?
     });
     return res;
 };
@@ -206,7 +209,7 @@ $(document).ready(function() {
             series: { regions: [ {attribute: 'fill'} ] },
             regionStyle: {
                 initial: {
-                    fill: 'grey',
+                    fill: defaultFill,
                     "fill-opacity": 1,
                     stroke: 'none',
                     "stroke-width": 0,
@@ -239,9 +242,9 @@ $(document).ready(function() {
       $(this).tab('show');
     })
 
-    $('#target-selector a').click(function (e) {
+    $("[role='target-selector'] > a").click(function (e) {
       e.preventDefault();
-      color_map(active_package, 'grey');
+      color_map(active_package, defaultFill);
       color_map(package_facts['targetedthreats'], '#8CDECE');
       var selection = $(this).attr('href').replace('?', '');
       active_package = package_facts['targetedthreats']['subpackages'][selection];
@@ -250,12 +253,18 @@ $(document).ready(function() {
 
     $("[role='dataset-selector'] > a").click(function (e) {
       e.preventDefault();
-      color_map(package_facts['targetedthreats'], 'grey'); //super hacked... not that everything else isn't...
-      color_map(active_package, 'grey');
+      color_map(package_facts['targetedthreats'], defaultFill); //super hacked... not that everything else isn't...
+      color_map(active_package, defaultFill);
       var selection = $(this).attr('href').replace('#','');
       active_package = package_facts[selection];
       color_map(active_package, active_package.color);
       $(this).tab('show');
+      if ($(this).is("#tt-toggle")) {
+        $("#target-selections").removeClass("hide");
+      }
+      else {
+        $("#target-selections").addClass("hide");
+      }
     })
 
 

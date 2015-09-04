@@ -6,6 +6,30 @@ permalink: /map/
 
 <h1>Map</h1>
 
+<div id="selection-container">
+<div id="dataset-selections" class="package-name">
+  <ul class="nav nav-pills">
+    <li role="dataset-selector">
+      <a href="#targetedthreats" id="tt-toggle">
+        Targeted Threats <span class="caret"></span>
+      </a>
+    </li>
+    <li role="dataset-selector"><a href="#vendors">Vendors</a></li>
+    <li role="dataset-selector"><a href="#resellers">Resellers</a></li>
+    <li role="dataset-selector"><a href="#encryptionlaws">Encryption Laws</a></li>
+  </ul>
+</div>
+
+<div id="target-selections" class="package-name subpackage-name hide">
+  <ul class="nav nav-pills">
+     <li role="target-selector"><a href="?activist">Activist</a></li>
+     <li role="target-selector"><a href="?journalist">Journalist</a></li>
+     <li role="target-selector"><a href="?opposition">Opposition</a></li>
+     <li role="target-selector"><a href="?ngo">NGO</a></li>
+     <li role="target-selector"><a href="?tibetan">Tibetan</a></li>    
+  </ul>
+</div>
+</div>
 <p>Select a country to get an overview of information available.</p>
 
 <center><div id="map" style="position: relative; width: 100%; height: 600px;"></div></center>
@@ -41,26 +65,6 @@ permalink: /map/
       </div>
     </div>
   </div>
-</div>
-
-<div id="dataset-selections">
-  <ul class="nav nav-pills">
-    <li role="dataset-selector" class="dropdown">
-      <a id="targetType" class="dropdown-toggle" data-toggle="dropdown" href="targetedthreats" aria-haspopup="true" aria-expanded="false" role="button">
-        Targeted Threats <span class="caret"></span>
-      </a>
-      <ul id="target-selector" class="dropdown-menu" aria-labelledby="targetType">
-      	<li><a href="?activist">Activist</a></li>
-      	<li><a href="?journalist">Journalist</a></li>
-      	<li><a href="?opposition">Opposition</a></li>
-      	<li><a href="?ngo">NGO</a></li>
-      	<li><a href="?tibetan">Tibetan</a></li>
-      </ul>
-    </li>
-    <li role="dataset-selector"><a href="#vendors">Vendors</a></li>
-    <li role="dataset-selector"><a href="#resellers">Resellers</a></li>
-    <li role="dataset-selector"><a href="#encryptionlaws">Encryption Laws</a></li>
-  </ul>
 </div>
 
 <script id="view-targetedthreats" type="text/template">
