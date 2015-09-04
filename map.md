@@ -43,6 +43,21 @@ permalink: /map/
   </div>
 </div>
 
+<div id="dataset-selector" class="btn-group" data-toggle="buttons">
+  <label class="btn btn-primary active">
+    <input type="radio" name="options" value="targetedthreats" autocomplete="off"> Targeted Threats
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="vendors" autocomplete="off"> Vendors
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="resellers" autocomplete="off"> Resellers
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" value="encryptionlaws" autocomplete="off"> Encryption Laws
+  </label> 
+</div>
+
 <script id="view-targetedthreats" type="text/template">
   <li>
     <% if (date) { %><strong>Date</strong>: <%= date %><br><% } %>

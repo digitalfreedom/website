@@ -5,38 +5,59 @@ var datatable = {}
 var packages = {};
 var countries = [];
 var current_country = '';
+var per_dataset = {};
+var package_facts = {};
+var active_package = null;
 
-var getPackageCallback = function(response) {
-  var name = response.name.replace('data-', '');
-  packages[name] = response.result;
+function PackageFacts(name) {
+  return {
+    name: name,
+    color: '#18bc9c', //put in here for now so colours can be customized for each package if wanted
+    countries: [],
+    pdata: null,
+  };
+}
 
-  // Make Unique countries
-  _.each(response.result, function(item, key) {
-    if (_.indexOf(countries, item.country) === -1) {
-      countries.push(item.country);
-    }
-  });
-};
+function init_package_facts() {
+  _.each(datasets, function(name, key) {
+    var facts = package_facts[name] = PackageFacts(name);
 
-var getPackages = function() {
-  _.each(datasets, function(package, key) {
-    $.ajax({
-      url: url_api + package,
+    getPackage(facts).done(function() {
+       // any data processing we want
+       // Make Unique countries
+       _.each(facts.pdata, function(item, key) {
+         if (_.indexOf(facts.countries, item.country) === -1) {
+           facts.countries.push(item.country);
+         }
+       });
+    });
+  })
+}
+
+var getPackage = function(facts) {
+    var res = $.ajax({
+      url: url_api + facts.name,
       crossDomain: true,
       dataType: "jsonp",
       jsonp: 'callback',
-      success: function(data) {
-        getPackageCallback(data);
-      }
     });
-  });
+    res.done(function(response) {
+      facts.pdata = response.result;
+    });
+    res.error(function() {
+      facts.loadError = true;
+    });
+    res.always(function() {
+    	//todo final render
+    });
+    return res;
 };
 
 var showDataRegion = function(region, package) {
   var view_template = _.template($('#view-' + package).html());
   var view_output = '';
 
-  _.each(packages[package], function(item, key) {
+  _.each(package_facts[package].pdata, function(item, key) {
 
     if (item.country == region) {
       var package_view = view_template(item);
@@ -65,8 +86,8 @@ var showToc = function(data) {
 }
 
 var showDataTable = function(package) {
-  var package_details = _.findWhere(datasets_toc, { data_package: package })
-  var this_package = packages[package.replace(prefix, '')]
+  var package_details = _.findWhere(datasets_toc, { data_package: package });
+  var this_package = package_facts[package.replace(prefix, '')].pdata;
 
   if (this_package) {
 
@@ -110,6 +131,16 @@ var showPackages = function() {
   })
 }
 
+
+function color_map(package_obj, color) {
+  var regionValues = {};
+  _.each(package_obj.countries, function(country) {
+    regionValues[country] = color;
+  })
+  var map = $('#map').vectorMap('get', 'mapObject');
+  map.series.regions[0].setValues(regionValues);
+}
+
 $(document).on('click', 'a.show-dataset', function(e) {
   showDataTable($(this).attr('href').replace('#', ''))
 })
@@ -129,7 +160,8 @@ $(document).ready(function() {
 
     // Load data based on pages
     if ($('#map').length || $('#datapackages').length) {
-        getPackages()
+        init_package_facts();
+	active_package = package_facts['targetedthreats'];
     }
 
     if ($('#datapackages').length) {
@@ -140,9 +172,10 @@ $(document).ready(function() {
         $('#map').vectorMap({
             map: 'world_mill',
             backgroundColor: '#ffffff',
+            series: { regions: [ {attribute: 'fill'} ] },
             regionStyle: {
                 initial: {
-                    fill: '#18bc9c',
+                    fill: 'grey',
                     "fill-opacity": 1,
                     stroke: 'none',
                     "stroke-width": 0,
@@ -165,15 +198,20 @@ $(document).ready(function() {
                 var map = $('#map').vectorMap('get', 'mapObject');
                 $('#modal').modal();
                 $('#modal').find('.modal-title').html('Results for: ' + country);
-                showDataRegion(country, 'targetedthreats');
             }
-        })
+        });
     }
-
+	
     $('#country-tabs a').click(function (e) {
       e.preventDefault();
       showDataRegion(current_country, $(this).attr('href').replace('#', ''));
       $(this).tab('show');
+    })
+
+    $('#dataset-selector :input').change(function() {
+      color_map(active_package, 'grey');
+      active_package = package_facts[this.value];
+      color_map(active_package, active_package.color);
     })
 
 
