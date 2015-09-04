@@ -43,19 +43,24 @@ permalink: /map/
   </div>
 </div>
 
-<div id="dataset-selector" class="btn-group" data-toggle="buttons">
-  <label class="btn btn-primary">
-    <input type="radio" name="options" value="targetedthreats" autocomplete="off"> Targeted Threats
-  </label>
-  <label class="btn btn-primary">
-    <input type="radio" name="options" value="vendors" autocomplete="off"> Vendors
-  </label>
-  <label class="btn btn-primary">
-    <input type="radio" name="options" value="resellers" autocomplete="off"> Resellers
-  </label>
-  <label class="btn btn-primary">
-    <input type="radio" name="options" value="encryptionlaws" autocomplete="off"> Encryption Laws
-  </label> 
+<div id="dataset-selections">
+  <ul class="nav nav-pills">
+    <li role="dataset-selector" class="dropdown">
+      <a id="targetType" class="dropdown-toggle" data-toggle="dropdown" href="targetedthreats" aria-haspopup="true" aria-expanded="false" role="button">
+        Targeted Threats <span class="caret"></span>
+      </a>
+      <ul id="target-selector" class="dropdown-menu" aria-labelledby="targetType">
+      	<li><a href="?activist">Activist</a></li>
+      	<li><a href="?journalist">Journalist</a></li>
+      	<li><a href="?opposition">Opposition</a></li>
+      	<li><a href="?ngo">NGO</a></li>
+      	<li><a href="?tibetan">Tibetan</a></li>
+      </ul>
+    </li>
+    <li role="dataset-selector"><a href="#vendors">Vendors</a></li>
+    <li role="dataset-selector"><a href="#resellers">Resellers</a></li>
+    <li role="dataset-selector"><a href="#encryptionlaws">Encryption Laws</a></li>
+  </ul>
 </div>
 
 <script id="view-targetedthreats" type="text/template">

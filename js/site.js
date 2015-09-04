@@ -15,6 +15,7 @@ function PackageFacts(name) {
     color: '#18bc9c', //put in here for now so colours can be customized for each package if wanted
     countries: [],
     pdata: null,
+    subpackages: {}
   };
 }
 
@@ -30,8 +31,38 @@ function init_package_facts() {
            facts.countries.push(item.country);
          }
        });
+       if (!facts.name.localeCompare('targetedthreats')) {
+	 processTargetedThreats();
+       }
     });
   })
+}
+
+function processTargetedThreats() {
+  var threat_facts = package_facts['targetedthreats'];
+  var current_threat_facts = null;
+  threat_facts['targets'] = [];
+  _.each(threat_facts.pdata, function(item, key) {
+    if (_.indexOf(threat_facts.targets, item.target) === -1) {
+      threat_facts.targets.push(item.target);
+    }
+  });
+  _.map(threat_facts.targets, function(target_name) {
+     current_threat_facts = threat_facts.subpackages[target_name] = makeSubpackage(target_name, threat_facts.pdata, {'target' : target_name});
+     current_threat_facts.color = "#18bc9c";
+     _.each(current_threat_facts.pdata, function(item, key) {
+       if (_.indexOf(current_threat_facts.countries, item.country) === -1) {
+         current_threat_facts.countries.push(item.country);
+       }
+     });
+  });
+}
+
+// we can select a subset of a package based on properties {}
+function makeSubpackage(name, data, properties) {
+  var subpackage = PackageFacts(name);
+  subpackage.pdata = _.filter(data, properties);
+  return subpackage;
 }
 
 var getPackage = function(facts) {
@@ -208,10 +239,23 @@ $(document).ready(function() {
       $(this).tab('show');
     })
 
-    $('#dataset-selector :input').change(function() {
+    $('#target-selector a').click(function (e) {
+      e.preventDefault();
       color_map(active_package, 'grey');
-      active_package = package_facts[this.value];
+      color_map(package_facts['targetedthreats'], '#8CDECE');
+      var selection = $(this).attr('href').replace('?', '');
+      active_package = package_facts['targetedthreats']['subpackages'][selection];
       color_map(active_package, active_package.color);
+    })
+
+    $("[role='dataset-selector'] > a").click(function (e) {
+      e.preventDefault();
+      color_map(package_facts['targetedthreats'], 'grey'); //super hacked... not that everything else isn't...
+      color_map(active_package, 'grey');
+      var selection = $(this).attr('href').replace('#','');
+      active_package = package_facts[selection];
+      color_map(active_package, active_package.color);
+      $(this).tab('show');
     })
 
 
