@@ -160,12 +160,12 @@ $(document).ready(function() {
                 }
             },
             onRegionClick: function(event, country) {
-
                 current_country = country;
                 var map = $('#map').vectorMap('get', 'mapObject');
                 $('#modal').modal();
                 $('#modal').find('.modal-title').html('Results for: ' + country);
                 showDataRegion(country, 'targetedthreats');
+                $('a[href=#targetedthreats]').tab('show')
             }
         })
     }
