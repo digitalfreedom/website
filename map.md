@@ -44,7 +44,7 @@ permalink: /map/
 </div>
 
 <div id="dataset-selector" class="btn-group" data-toggle="buttons">
-  <label class="btn btn-primary active">
+  <label class="btn btn-primary">
     <input type="radio" name="options" value="targetedthreats" autocomplete="off"> Targeted Threats
   </label>
   <label class="btn btn-primary">
