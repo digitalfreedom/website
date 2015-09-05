@@ -15,7 +15,7 @@
   },
   "scripts": {
     "watch": "webpack --progress --colors --watch & jekyll serve --watch --config _config.yml,_config-dev.yml",
-    "build": "webpack --progress --colors && jekyll build",
+    "build": "webpack --optimize-minimize --progress --colors && jekyll build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
