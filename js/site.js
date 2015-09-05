@@ -5,38 +5,98 @@ var datatable = {}
 var packages = {};
 var countries = [];
 var current_country = '';
+var per_dataset = {};
+var package_facts = {};
+var active_package = null;
 
-var getPackageCallback = function(response) {
-  var name = response.name.replace('data-', '');
-  packages[name] = response.result;
+// MAP VARIABLES (this should probably go into some magical style land)
+var defaultFill = '#d3d3d3'; // fill when no data is available
+var primaryFill = '#18bc9c'; // dark green fill for main selection
+var secondaryFill = '#8CDECE'; // light green for sub packages
 
-  // Make Unique countries
-  _.each(response.result, function(item, key) {
-    if (_.indexOf(countries, item.country) === -1) {
-      countries.push(item.country);
+function PackageFacts(name) {
+  return {
+    name: name,
+    color: primaryFill, //put in here for now so colours can be customized for each package if wanted
+    countries: [],
+    pdata: null,
+    subpackages: {}
+  };
+}
+
+function init_package_facts() {
+  _.each(datasets, function(name, key) {
+    var facts = package_facts[name] = PackageFacts(name);
+
+    getPackage(facts).done(function() {
+       // any data processing we want
+       // Make Unique countries
+       _.each(facts.pdata, function(item, key) {
+         if (_.indexOf(facts.countries, item.country) === -1) {
+           facts.countries.push(item.country);
+         }
+       });
+       if (!facts.name.localeCompare('targetedthreats')) {
+	 processTargetedThreats();
+	 active_package = facts;
+	 color_map(active_package, active_package.color); //oh hello race condition
+	 $("#initial-dataset").addClass("active"); //bootstrap doesn't let you just put it in html as initially active
+       }
+    });
+  })
+}
+
+function processTargetedThreats() {
+  var threat_facts = package_facts['targetedthreats'];
+  var current_threat_facts = null;
+  threat_facts['targets'] = [];
+  _.each(threat_facts.pdata, function(item, key) {
+    if (_.indexOf(threat_facts.targets, item.target) === -1) {
+      threat_facts.targets.push(item.target);
     }
   });
-};
+  _.map(threat_facts.targets, function(target_name) {
+     current_threat_facts = threat_facts.subpackages[target_name] = makeSubpackage(target_name, threat_facts.pdata, {'target' : target_name});
+     current_threat_facts.color = primaryFill;
+     _.each(current_threat_facts.pdata, function(item, key) {
+       if (_.indexOf(current_threat_facts.countries, item.country) === -1) {
+         current_threat_facts.countries.push(item.country);
+       }
+     });
+  });
+}
 
-var getPackages = function() {
-  _.each(datasets, function(package, key) {
-    $.ajax({
-      url: url_api + package,
+// we can select a subset of a package based on properties {}
+function makeSubpackage(name, data, properties) {
+  var subpackage = PackageFacts(name);
+  subpackage.pdata = _.filter(data, properties);
+  return subpackage;
+}
+
+var getPackage = function(facts) {
+    var res = $.ajax({
+      url: url_api + facts.name,
       crossDomain: true,
       dataType: "jsonp",
       jsonp: 'callback',
-      success: function(data) {
-        getPackageCallback(data);
-      }
     });
-  });
+    res.done(function(response) {
+      facts.pdata = response.result;
+    });
+    res.error(function() {
+      facts.loadError = true;
+    });
+    res.always(function() {
+    //todo: final render?
+    });
+    return res;
 };
 
 var showDataRegion = function(region, package) {
   var view_template = _.template($('#view-' + package).html());
   var view_output = '';
 
-  _.each(packages[package], function(item, key) {
+  _.each(package_facts[package].pdata, function(item, key) {
 
     if (item.country == region) {
       var package_view = view_template(item);
@@ -65,8 +125,8 @@ var showToc = function(data) {
 }
 
 var showDataTable = function(package) {
-  var package_details = _.findWhere(datasets_toc, { data_package: package })
-  var this_package = packages[package.replace(prefix, '')]
+  var package_details = _.findWhere(datasets_toc, { data_package: package });
+  var this_package = package_facts[package.replace(prefix, '')].pdata;
 
   if (this_package) {
 
@@ -110,6 +170,16 @@ var showPackages = function() {
   })
 }
 
+
+function color_map(package_obj, color) {
+  var regionValues = {};
+  _.each(package_obj.countries, function(country) {
+    regionValues[country] = color;
+  })
+  var map = $('#map').vectorMap('get', 'mapObject');
+  map.series.regions[0].setValues(regionValues);
+}
+
 $(document).on('click', 'a.show-dataset', function(e) {
   showDataTable($(this).attr('href').replace('#', ''))
 })
@@ -129,7 +199,7 @@ $(document).ready(function() {
 
     // Load data based on pages
     if ($('#map').length || $('#datapackages').length) {
-        getPackages()
+        init_package_facts();
     }
 
     if ($('#datapackages').length) {
@@ -140,9 +210,10 @@ $(document).ready(function() {
         $('#map').vectorMap({
             map: 'world_mill',
             backgroundColor: '#ffffff',
+            series: { regions: [ {attribute: 'fill'} ] },
             regionStyle: {
                 initial: {
-                    fill: '#18bc9c',
+                    fill: defaultFill,
                     "fill-opacity": 1,
                     stroke: 'none',
                     "stroke-width": 0,
@@ -165,15 +236,43 @@ $(document).ready(function() {
                 var map = $('#map').vectorMap('get', 'mapObject');
                 $('#modal').modal();
                 $('#modal').find('.modal-title').html('Results for: ' + country);
-                showDataRegion(country, 'targetedthreats');
             }
-        })
+        });
     }
-
+	
     $('#country-tabs a').click(function (e) {
       e.preventDefault();
       showDataRegion(current_country, $(this).attr('href').replace('#', ''));
       $(this).tab('show');
+    })
+
+    $("[class='target-selector'] > a").click(function (e) {
+      e.preventDefault();
+      console.log(this);
+      $(this).tab('show');
+      color_map(active_package, defaultFill);
+      color_map(package_facts['targetedthreats'], secondaryFill);
+      var selection = $(this).attr('href').replace('#', '');
+      active_package = package_facts['targetedthreats']['subpackages'][selection];
+      color_map(active_package, active_package.color);
+    })
+
+    $("[class='dataset-selector'] > a").click(function (e) {
+      e.preventDefault();
+      console.log(this);
+      $(this).tab('show');
+      $(".target-selector").removeClass("active"); // tt submenu is no longer active if a dataset has been hit
+      color_map(package_facts['targetedthreats'], defaultFill); //super hacked... not that everything else isn't...
+      color_map(active_package, defaultFill);
+      var selection = $(this).attr('href').replace('#','');
+      active_package = package_facts[selection];
+      color_map(active_package, active_package.color);
+      if ($(this).is("#tt-toggle")) {
+        $("#target-selections>ul").removeClass("hide");
+      }
+      else {
+        $("#target-selections>ul").addClass("hide");
+      }
     })
 
 

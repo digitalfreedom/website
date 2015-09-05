@@ -4,11 +4,40 @@ title: Map
 permalink: /map/
 ---
 
-<h1>Map</h1>
+<div class="row"><h1>Map</h1></div>
+<div class="row top-buffer-30">
+  <p>Select a country to get an overview of information available.</p>
+</div>
 
-<p>Select a country to get an overview of information available.</p>
+<div class="row top-buffer-30"></div>
+<div id="map" class="row" style="position: relative; width: 100%; height: 600px;"></div>
+<div class="row top-buffer-75"></div>
 
-<center><div id="map" style="position: relative; width: 100%; height: 600px;"></div></center>
+<div id="selection-container">
+<div id="dataset-selections" class="row">
+  <ul class="nav nav-tabs nav-justified darkgreen">
+    <li id="initial-dataset" class="dataset-selector">
+      <a href="#targetedthreats" id="tt-toggle">
+        Targeted Threats <span class="caret"></span>
+      </a>
+    </li>
+    <li class="dataset-selector"><a href="#vendors">Vendors</a></li>
+    <li class="dataset-selector"><a href="#resellers">Resellers</a></li>
+    <li class="dataset-selector"><a href="#encryptionlaws">Encryption Laws</a></li>
+  </ul>
+</div>
+
+<div id="target-selections" class="row">
+  <ul class="nav nav-tabs nav-justified fadedgreen">
+     <li class="target-selector"><a href="#activist">Activist</a></li>
+     <li class="target-selector"><a href="#journalist">Journalist</a></li>
+     <li class="target-selector"><a href="#opposition">Opposition</a></li>
+     <li class="target-selector"><a href="#ngo">NGO</a></li>
+     <li class="target-selector"><a href="#tibetan">Tibetan</a></li>    
+  </ul>
+</div>
+</div>
+
 
 <div class="modal fade" id="modal">
   <div class="modal-dialog">
