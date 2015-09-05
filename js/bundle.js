@@ -46,7 +46,7 @@
 
 	var Map = __webpack_require__(1);
 
-	jQuery( document ).ready(function( $ ) {
+	jQuery(document).ready(function($) {
 	  Map();
 	});
 
@@ -274,7 +274,13 @@
 	      $('#map').vectorMap({
 	        map: 'world_mill',
 	        backgroundColor: '#ffffff',
-	        series: { regions: [{ attribute: 'fill' }] },
+	        markersSelectable: true,
+	        markers: [
+	          { latLng: [26.02, 50.55], name: 'Bahrain' }
+	        ],
+	        series: {
+	          regions: [{ attribute: 'fill' }]
+	        },
 	        regionStyle: {
 	          initial: {
 	            fill: defaultFill,
@@ -294,7 +300,23 @@
 	            fill: 'yellow'
 	          }
 	        },
+	        // Tiny countries like Bahrain are rendered as markers. Not regions.
+	        markerStyle: {
+	          initial: {
+	            fill: defaultFill,
+	            stroke: 'none',
+	          },
+	          selected: {
+	            fill: 'yellow'
+	          }
+	        },
 	        onRegionClick: function(event, country) {
+	          current_country = country;
+	          var map = $('#map').vectorMap('get', 'mapObject');
+	          $('#modal').modal();
+	          $('#modal').find('.modal-title').html('Results for: ' + country);
+	        },
+	        onMarkerSelected: function(event, country){
 	          current_country = country;
 	          var map = $('#map').vectorMap('get', 'mapObject');
 	          $('#modal').modal();
