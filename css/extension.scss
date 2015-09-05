@@ -1,0 +1,24 @@
+---
+# this ensures Jekyll reads the file to be transformed into CSS later
+# only Main files contain this front matter, not partials.
+---
+
+@import "nav";
+
+.content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#target-selections {
+  min-height:43px;
+  background-color:#18bc9c;
+}
+
+.top-buffer-30 {
+ margin-top:30px;
+}
+
+.top-buffer-75 {
+  margin-top:75px;
+}
