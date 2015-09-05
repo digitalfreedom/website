@@ -218,9 +218,9 @@ function Map() {
         map: 'world_mill',
         backgroundColor: '#ffffff',
         markersSelectable: true,
-        markers: [
-          { latLng: [26.02, 50.55], name: 'Bahrain' }
-        ],
+        markers: {
+          "BH": { latLng: [26.02, 50.55], name: 'Bahrain' }
+        },
         series: {
           regions: [{ attribute: 'fill' }]
         },
@@ -259,7 +259,7 @@ function Map() {
           $('#modal').modal();
           $('#modal').find('.modal-title').html('Results for: ' + country);
         },
-        onMarkerSelected: function(event, country){
+        onMarkerClick: function(event, country){
           current_country = country;
           var map = $('#map').vectorMap('get', 'mapObject');
           $('#modal').modal();
