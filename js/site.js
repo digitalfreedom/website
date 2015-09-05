@@ -234,7 +234,7 @@ $(document).ready(function() {
                 current_country = country;
                 var map = $('#map').vectorMap('get', 'mapObject');
                 $('#modal').modal();
-                $('#modal').find('.modal-title').html('Results for: ' + country);
+                $('#modal').find('.modal-title').html('Results for: ' + map.getRegionName(country));
                 showDataRegion(country, 'targetedthreats');
                 $('a[href=#targetedthreats]').tab('show')
             }
