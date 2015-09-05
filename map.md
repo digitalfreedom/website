@@ -33,7 +33,8 @@ permalink: /map/
      <li class="target-selector"><a href="#journalist">Journalist</a></li>
      <li class="target-selector"><a href="#opposition">Opposition</a></li>
      <li class="target-selector"><a href="#ngo">NGO</a></li>
-     <li class="target-selector"><a href="#tibetan">Tibetan</a></li>    
+     <li class="target-selector"><a href="#tibetan">Tibetan</a></li>
+     <li class="target-selector"><a href="#lawyer">Lawyer</a></li>
   </ul>
 </div>
 </div>
