@@ -11,11 +11,13 @@ var active_package = null;
 
 // MAP VARIABLES (this should probably go into some magical style land)
 var defaultFill = '#d3d3d3'; // fill when no data is available
+var primaryFill = '#18bc9c'; // dark green fill for main selection
+var secondaryFill = '#8CDECE'; // light green for sub packages
 
 function PackageFacts(name) {
   return {
     name: name,
-    color: '#18bc9c', //put in here for now so colours can be customized for each package if wanted
+    color: primaryFill, //put in here for now so colours can be customized for each package if wanted
     countries: [],
     pdata: null,
     subpackages: {}
@@ -52,7 +54,7 @@ function processTargetedThreats() {
   });
   _.map(threat_facts.targets, function(target_name) {
      current_threat_facts = threat_facts.subpackages[target_name] = makeSubpackage(target_name, threat_facts.pdata, {'target' : target_name});
-     current_threat_facts.color = "#18bc9c";
+     current_threat_facts.color = primaryFill;
      _.each(current_threat_facts.pdata, function(item, key) {
        if (_.indexOf(current_threat_facts.countries, item.country) === -1) {
          current_threat_facts.countries.push(item.country);
@@ -242,28 +244,32 @@ $(document).ready(function() {
       $(this).tab('show');
     })
 
-    $("[role='target-selector'] > a").click(function (e) {
+    $("[class='target-selector'] > a").click(function (e) {
       e.preventDefault();
+      //console.log(this);
+      $(this).tab('show');
       color_map(active_package, defaultFill);
-      color_map(package_facts['targetedthreats'], '#8CDECE');
-      var selection = $(this).attr('href').replace('?', '');
+      color_map(package_facts['targetedthreats'], secondaryFill);
+      var selection = $(this).attr('href').replace('#', '');
       active_package = package_facts['targetedthreats']['subpackages'][selection];
       color_map(active_package, active_package.color);
     })
 
-    $("[role='dataset-selector'] > a").click(function (e) {
+    $("[class='dataset-selector'] > a").click(function (e) {
       e.preventDefault();
+      console.log(this);
+      $(this).tab('show');
+      $(".target-selector").removeClass("active"); // tt submenu is no longer active if a dataset has been hit
       color_map(package_facts['targetedthreats'], defaultFill); //super hacked... not that everything else isn't...
       color_map(active_package, defaultFill);
       var selection = $(this).attr('href').replace('#','');
       active_package = package_facts[selection];
       color_map(active_package, active_package.color);
-      $(this).tab('show');
       if ($(this).is("#tt-toggle")) {
-        $("#target-selections").removeClass("hide");
+        $("#target-selections>ul").removeClass("hide");
       }
       else {
-        $("#target-selections").addClass("hide");
+        $("#target-selections>ul").addClass("hide");
       }
     })
 

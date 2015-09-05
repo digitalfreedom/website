@@ -1,0 +1,38 @@
+.nav.darkgreen>li>a {
+  background-color: #d3d3d3; 
+  color:black;
+  bottom-border:0px;
+ }
+
+.nav.darkgreen>li.active>a, .nav.darkgreen>li.active>a:hover, .nav.darkgreen>li.active>a:focus {
+  background-color: #18bc9c;
+  color: black;
+  bottom-border:0px;
+}
+
+.nav.fadedgreen>li>a {
+  background-color: #8CDECE;
+  color:black;
+  border-color:#d3d3d3;
+  top-border:0px;
+}
+
+.nav.fadedgreen>li.active>a, .nav.fadedgreen>li.active>a:hover, .nav.fadedgreen>li.active>a:focus {
+ color: black;
+ top-border:0px;
+ border-color:#d3d3d3;
+ background-color:#18bc9c;
+}
+
+#target-selections {
+min-height:43px;
+background-color:#18bc9c;
+}
+
+.top-buffer-30 {
+ margin-top:30px;
+}
+
+.top-buffer-75 {
+  margin-top:75px;
+}
