@@ -38,6 +38,8 @@ function init_package_facts() {
        });
        if (!facts.name.localeCompare('targetedthreats')) {
 	 processTargetedThreats();
+	 active_package = facts;
+	 color_map(active_package, active_package.color); //oh hello race condition
        }
     });
   })
@@ -197,7 +199,6 @@ $(document).ready(function() {
     // Load data based on pages
     if ($('#map').length || $('#datapackages').length) {
         init_package_facts();
-	active_package = package_facts['targetedthreats'];
     }
 
     if ($('#datapackages').length) {
@@ -246,7 +247,6 @@ $(document).ready(function() {
 
     $("[class='target-selector'] > a").click(function (e) {
       e.preventDefault();
-      //console.log(this);
       $(this).tab('show');
       color_map(active_package, defaultFill);
       color_map(package_facts['targetedthreats'], secondaryFill);
@@ -257,7 +257,6 @@ $(document).ready(function() {
 
     $("[class='dataset-selector'] > a").click(function (e) {
       e.preventDefault();
-      console.log(this);
       $(this).tab('show');
       $(".target-selector").removeClass("active"); // tt submenu is no longer active if a dataset has been hit
       color_map(package_facts['targetedthreats'], defaultFill); //super hacked... not that everything else isn't...

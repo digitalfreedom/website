@@ -24,7 +24,7 @@ permalink: /map/
 </div>
 
 <div id="target-selections" class="row">
-  <ul class="nav nav-tabs nav-justified fadedgreen hide">
+  <ul class="nav nav-tabs nav-justified fadedgreen">
      <li class="target-selector"><a href="#activist">Activist</a></li>
      <li class="target-selector"><a href="#journalist">Journalist</a></li>
      <li class="target-selector"><a href="#opposition">Opposition</a></li>
