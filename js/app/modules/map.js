@@ -259,7 +259,7 @@ function Map() {
           $('#modal').modal();
           $('#modal').find('.modal-title').html('Results for: ' + country);
         },
-        onMarkerClick: function(event, country){
+        onMarkerClick: function(event, country) {
           current_country = country;
           var map = $('#map').vectorMap('get', 'mapObject');
           $('#modal').modal();
