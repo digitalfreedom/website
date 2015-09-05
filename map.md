@@ -21,8 +21,8 @@ permalink: /map/
         Targeted Threats <span class="caret"></span>
       </a>
     </li>
-    <li class="dataset-selector"><a href="#vendors">Vendors</a></li>
-    <li class="dataset-selector"><a href="#resellers">Resellers</a></li>
+    <li class="dataset-selector"><a href="#vendors">Surveillance Vendors</a></li>
+    <li class="dataset-selector"><a href="#resellers">Surveillance Resellers</a></li>
     <li class="dataset-selector"><a href="#encryptionlaws">Encryption Laws</a></li>
   </ul>
 </div>
