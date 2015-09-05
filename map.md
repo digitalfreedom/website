@@ -12,7 +12,7 @@ permalink: /map/
 <div id="selection-container">
 <div id="dataset-selections" class="row">
   <ul class="nav nav-tabs nav-justified darkgreen">
-    <li class="dataset-selector">
+    <li id="initial-dataset" class="dataset-selector">
       <a href="#targetedthreats" id="tt-toggle">
         Targeted Threats <span class="caret"></span>
       </a>
