@@ -8,8 +8,11 @@ This is the codebase to generate the website.
 To our develop / build site on your local machine do the following:
 
 - Install Jekyll using `gem install jekyll`
-- Build the static site & make files watch for updates `jekyll serve --watch --config _config.yml,_config-dev.yml`
+- Install `npm` dependences: `npm i`
+- Use `npm` tasks to build static site or run it locally
+  - `npm run watch` - for developing locally
+  - `npm run build` - for deployment
 
 ## Deploying
 
-- Build the static site for serving to the world wide web using `jekyll build`
+- Build the static site for serving to the world wide web using `npm run build`
