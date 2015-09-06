@@ -4,15 +4,6 @@ title: Map
 permalink: /map/
 ---
 
-<div class="row"><h1>Map</h1></div>
-<div class="row top-buffer-30">
-  <p>Select a country to get an overview of information available.</p>
-</div>
-
-<div class="row top-buffer-30"></div>
-<div id="map" class="row" style="position: relative; width: 100%; height: 600px;"></div>
-<div class="row top-buffer-75"></div>
-
 <div id="selection-container">
 <div id="dataset-selections" class="row">
   <ul class="nav nav-tabs nav-justified darkgreen">
@@ -39,6 +30,9 @@ permalink: /map/
 </div>
 </div>
 
+<div class="row top-buffer-30"></div>
+<div id="map" class="row" style="position: relative; width: 100%; height: 600px;"></div>
+<div class="row top-buffer-75"></div>
 
 <div class="modal fade" id="modal">
   <div class="modal-dialog">
