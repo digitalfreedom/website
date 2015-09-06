@@ -6,7 +6,7 @@ permalink: /map/
 
 <div class="row"><h1>Map</h1></div>
 
-<div id="selection-container" class="top-buffer-30">
+<div id="selection-container">
 <div id="dataset-selections" class="row">
   <ul class="nav nav-tabs nav-justified darkgreen">
     <li id="initial-dataset" class="dataset-selector">
