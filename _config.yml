@@ -10,6 +10,7 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog/
 sass:
   style: compact
+exclude: [node_modules]
 url: "https://digitalfreedom.io" # the base hostname & protocol for your site
 url_api: "https://digitalfreedom.io/api/"
 twitter_username:
