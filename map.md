@@ -71,45 +71,45 @@ permalink: /map/
 
 <script id="view-targetedthreats" type="text/template">
   <li>
-    <% if (date) { %><strong>Date</strong>: <%= date %><br><% } %>
-    <% if (md5) { %><strong>MD5</strong>: <%= md5 %><br><% } %>
-    <% if (c2) { %><strong>Command &amp; Control</strong>: <%= c2 %></strong><br><% } %>
-    <% if (family) { %><strong>Family</strong>: <%= family %><br><% } %>
-    <% if (target) { %><strong>Target</strong>: <%= target %><br><% } %>
-    <% if (reference) { %><a href="<%= reference %>" target="_blank">Reference</a><% } %>
+    <% if (typeof date != 'undefined' && date) { %><strong>Date</strong>: <%= date %><br><% } %>
+    <% if (typeof md5 != 'undefined' && md5) { %><strong>MD5</strong>: <%= md5 %><br><% } %>
+    <% if (typeof c2 != 'undefined' && c2) { %><strong>Command &amp; Control</strong>: <%= c2 %></strong><br><% } %>
+    <% if (typeof family != 'undefined' && family) { %><strong>Family</strong>: <%= family %><br><% } %>
+    <% if (typeof target != 'undefined' && target) { %><strong>Target</strong>: <%= target %><br><% } %>
+    <% if (typeof reference != 'undefined' && reference) { %><a href="<%= reference %>" target="_blank">Reference</a><% } %>
     <hr>
   </li>
 </script>
 
 <script id="view-vendors" type="text/template">
   <li>
-    <strong>Company</strong>: <%= company %><br>
-    <strong>Solution</strong>: <%= solution %><br>
-    <a href="<%= website %>" target="_blank"><%= website %></a>
+    <% if (typeof company != 'undefined' && company) { %><strong>Company</strong>: <%= company %><br><% } %>
+    <% if (typeof solution != 'undefined' && solution) { %><strong>Solution</strong>: <%= solution %><br><% } %>
+    <% if (typeof website != 'undefined' && website) { %><strong>Website</strong>: <a href="<%= website %>" target="_blank"><%= website %></a><% } %>
     <hr>
   </li>
 </script>
 
 <script id="view-encryptionlaws" type="text/template">
   <li>
-    <% if (import_restrictions) { %><strong>Import</strong>: <%= import_restrictions %><br><% } %>
-    <% if (prohibit_user) { %><strong>Prohibit Use</strong>: <%= prohibit_user %><br><% } %>
-    <% if (license_use) { %><strong>License Use</strong>: <%= license_use %><br><% } %>
-    <% if (provide_keys) { %><strpong>Provide Keys</strong>: <%= provide_keys %><% } %>
+    <% if (typeof import_restrictions != 'undefined' && import_restrictions) { %><strong>Import</strong>: <%= import_restrictions %><br><% } %>
+    <% if (typeof prohibit_use != 'undefined' && prohibit_use) { %><strong>Prohibit Use</strong>: <%= prohibit_use %><br><% } %>
+    <% if (typeof license_use != 'undefined' && license_use) { %><strong>License Use</strong>: <%= license_use %><br><% } %>
+    <% if (typeof provide_keys != 'undefined' && provide_keys) { %><strpong>Provide Keys</strong>: <%= provide_keys %><% } %>
     <hr>
   </li>
 </script>
 
 <script id="view-resellers" type="text/template">
   <li>
-    <strong>Company</strong>: <%= company %><br>
-    <strong>Entity</strong>: <%= entity %><br>
-    <strong>Location</strong>: <%= country %>, <%= region %>, <%= municipality %><br>
-    <strong>Suppliers</strong>: <%= suppliers %><br>
-    <strong>Government Customers</strong>: <%= government_customers %><br>
-    <strong>Corporate Customers</strong>: <%= corporate_customers %><br>
-    <strong>Website</strong>: <%= website %><br>
-    <strong>Notes</strong>: <%= notes %><br>
+    <% if (typeof company != 'undefined' && company) { %><strong>Company</strong>: <%= company %><br><% } %>
+    <% if (typeof entity != 'undefined' && entity) { %><strong>Entity</strong>: <%= entity %><br><% } %>
+    <% if (typeof country != 'undefined' && country) { %><strong>Location</strong>: <%= country %>, <%= region %>, <%= municipality %><br><% } %>
+    <% if (typeof suppliers != 'undefined' && suppliers) { %><strong>Suppliers</strong>: <%= suppliers %><br><% } %>
+    <% if (typeof government_customers != 'undefined' && government_customers) { %><strong>Government Customers</strong>: <%= government_customers %><br><% } %>
+    <% if (typeof corporate_customers != 'undefined' && corporate_customers) { %><strong>Corporate Customers</strong>: <%= corporate_customers %><br><% } %>
+    <% if (typeof website != 'undefined' && website) { %><strong>Website</strong>: <a href="<%= website %>" target="_blank"><%= website %></a><br><% } %>
+    <% if (typeof notes != 'undefined' && notes) { %><strong>Notes</strong>: <%= notes %><br><% } %>
     <hr>
   </li>
 </script>

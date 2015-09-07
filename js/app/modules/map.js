@@ -119,6 +119,26 @@ function Map() {
     }
   };
 
+	var showTab = function(tab) {
+		var $tab = $('#modal').find('a[href=#' + tab + ']');
+		if ($tab.length === 0) {
+			// TODO: This fallback should be replaced with code that can handle
+			// the targetedthreats sub types (activist, journalist, ...)
+			tab = 'targetedthreats';
+			$tab = $('#modal').find('a[href=#' + tab + ']');
+		}
+		showDataRegion(current_country, tab);
+		$tab.tab('show');
+	}
+	
+	var showCountry = function(country) { 
+    current_country = country;
+    var map = $('#map').vectorMap('get', 'mapObject');
+    $('#modal').modal();
+    $('#modal').find('.modal-title').html('Results for: ' + map.getRegionName(country));
+		showTab(active_package.name);
+	}
+
   var showToc = function(data) {
     var html_packages = '';
     var template_packages = _.template($('#view-datapackages').html());
@@ -254,24 +274,19 @@ function Map() {
           }
         },
         onRegionClick: function(event, country) {
-          current_country = country;
-          var map = $('#map').vectorMap('get', 'mapObject');
-          $('#modal').modal();
-          $('#modal').find('.modal-title').html('Results for: ' + country);
+					showCountry(country);
         },
         onMarkerClick: function(event, country) {
-          current_country = country;
-          var map = $('#map').vectorMap('get', 'mapObject');
-          $('#modal').modal();
-          $('#modal').find('.modal-title').html('Results for: ' + country);
+					showCountry(country);
         }
       });
     }
 
+
     $('#country-tabs a').click(function(e) {
+			var tab = $(this).attr('href').replace('#', '');
       e.preventDefault();
-      showDataRegion(current_country, $(this).attr('href').replace('#', ''));
-      $(this).tab('show');
+			showTab(tab);
     });
 
     $("[class='target-selector'] > a").click(function(e) {
