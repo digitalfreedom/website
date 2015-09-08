@@ -1,1 +1,383 @@
-!function(t){function a(n){if(e[n])return e[n].exports;var r=e[n]={exports:{},id:n,loaded:!1};return t[n].call(r.exports,r,r.exports,a),r.loaded=!0,r.exports}var e={};return a.m=t,a.c=e,a.p="",a(0)}([function(t,a,e){var n=e(1);jQuery(document).ready(function(t){n()})},function(t,a){function e(){function t(t){return{name:t,color:p,countries:[],pdata:null,subpackages:{}}}function a(){_.each(l,function(a,n){var o=d[a]=t(a);g(o).done(function(){_.each(o.pdata,function(t,a){-1===_.indexOf(o.countries,t.country)&&o.countries.push(t.country)}),o.name.localeCompare("targetedthreats")||(e(),u=o,r(u,u.color),$("#initial-dataset").addClass("active"))})})}function e(){var t=d.targetedthreats,a=null;t.targets=[],_.each(t.pdata,function(a,e){-1===_.indexOf(t.targets,a.target)&&t.targets.push(a.target)}),_.map(t.targets,function(e){a=t.subpackages[e]=n(e,t.pdata,{target:e}),a.color=p,_.each(a.pdata,function(t,e){-1===_.indexOf(a.countries,t.country)&&a.countries.push(t.country)})})}function n(a,e,n){var r=t(a);return r.pdata=_.filter(e,n),r}function r(t,a){var e={},n=$("#map").vectorMap("get","mapObject");_.each(t.countries,function(t){e[t]=a}),n.series.regions[0].setValues(e)}var o="data-",l=["encryptionlaws","resellers","targetedthreats","vendors"],s={},c={},i="",d={},u=null,f="#d3d3d3",p="#18bc9c",h="#8CDECE",g=function(t){var a=$.ajax({url:url_api+t.name,crossDomain:!0,dataType:"jsonp",jsonp:"callback"});return a.done(function(a){t.pdata=a.result}),a.error(function(){t.loadError=!0}),a.always(function(){}),a},m=function(t,a){var e=_.template($("#view-"+a).html()),n="";_.each(d[a].pdata,function(a,r){if(a.country===t){var o=e(a);n+=o}}),n?$("#"+a).html("<p>&nbsp;</p><ul>"+n+"</ul>"):$("#"+a).html("<h4>No "+a+" data found</h4>")},v=function(t){var a=$("#modal").find("a[href=#"+t+"]");0===a.length&&(t="targetedthreats",a=$("#modal").find("a[href=#"+t+"]")),m(i,t),a.tab("show")},k=function(t){i=t;var a=$("#map").vectorMap("get","mapObject");$("#modal").modal(),$("#modal").find(".modal-title").html("Results for: "+a.getRegionName(t)),v(u.name)},y=function(t){var a="",e=_.template($("#view-datapackages").html());_.each(t.result,function(t,n){a+=e(t)}),$("#datapackages").html(a)},b=function(t){var a=_.findWhere(s,{data_package:t}),e=d[t.replace(o,"")].pdata;if(e){$("#datapackages-details").hide(),$("#datapackages").hide(),$("#datapackages-title").find("h1").html("Dataset: "+a.name),$("#datapackages-title").find("p").html(a.description),$("#show-datasets-toc").removeClass("hidden"),$("#datatable").show();var n=_.keys(e[0]),r=[];_.each(n,function(t){r.push({title:t})});var l=[];_.each(e,function(t,a){l.push(_.values(t))}),c=$("#datatable").DataTable({data:l,columns:r})}},w=function(){$.ajax({url:url_api,crossDomain:!0,dataType:"jsonp",jsonp:"callback",success:function(t){y(t),s=t.result}})};$(document).on("click","a.show-dataset",function(t){t.preventDefault(),b($(this).attr("href").replace("#",""))}),$(document).on("click","#show-datasets-toc",function(t){t.preventDefault(),$(this).addClass("hidden"),c.destroy(),$("#datatable").html(""),$("#datapackages-title").find("h1").html("Our Datasets"),$("#datapackages-title").find("p").html(""),$("#datapackages-details").show(),$("#datapackages").show()}),$(document).ready(function(){($("#map").length||$("#datapackages").length)&&a(),$("#datapackages").length&&w(),$("#map").length&&$("#map").vectorMap({map:"world_mill",backgroundColor:"#ffffff",markersSelectable:!0,markers:{BH:{latLng:[26.02,50.55],name:"Bahrain"}},series:{regions:[{attribute:"fill"}]},regionStyle:{initial:{fill:f,"fill-opacity":1,stroke:"none","stroke-width":0,"stroke-opacity":1},hover:{"fill-opacity":.8,cursor:"pointer"},selected:{fill:"yellow"},selectedHover:{fill:"yellow"}},markerStyle:{initial:{fill:f,stroke:"none"},selected:{fill:"yellow"}},onRegionClick:function(t,a){k(a)},onMarkerClick:function(t,a){k(a)}}),$("#country-tabs a").click(function(t){var a=$(this).attr("href").replace("#","");t.preventDefault(),v(a)}),$("[class='target-selector'] > a").click(function(t){t.preventDefault(),console.log(this),$(this).tab("show"),r(u,f),r(d.targetedthreats,h);var a=$(this).attr("href").replace("#","");u=d.targetedthreats.subpackages[a],r(u,u.color)}),$("[class='dataset-selector'] > a").click(function(t){t.preventDefault(),console.log(this),$(this).tab("show"),$(".target-selector").removeClass("active"),r(d.targetedthreats,f),r(u,f);var a=$(this).attr("href").replace("#","");u=d[a],r(u,u.color),$(this).is("#tt-toggle")?$("#target-selections>ul").removeClass("hide"):$("#target-selections>ul").addClass("hide")})})}t.exports=e}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Map = __webpack_require__(1);
+
+	jQuery(document).ready(function($) {
+	  Map();
+	});
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	/*
+	  Globals...
+
+	  $
+	  _
+	  DataTable
+	  vectorMap
+	  url_api
+
+	*/
+
+	function Map() {
+	  var prefix = 'data-';
+	  var datasets = ['encryptionlaws', 'resellers', 'targetedthreats', 'vendors'];
+	  var datasets_toc = {};
+	  var datatable = {};
+	  var current_country = '';
+	  var package_facts = {};
+	  var active_package = null;
+
+	  // MAP VARIABLES (this should probably go into some magical style land)
+	  var defaultFill = '#d3d3d3'; // fill when no data is available
+	  var primaryFill = '#18bc9c'; // dark green fill for main selection
+	  var secondaryFill = '#8CDECE'; // light green for sub packages
+
+	  function PackageFacts(name) {
+	    return {
+	      name: name,
+	      color: primaryFill, // put in here for now so colours can be customized for each _package if wanted
+	      countries: [],
+	      pdata: null,
+	      subpackages: {}
+	    };
+	  }
+
+	  function initPackageFacts() {
+	    _.each(datasets, function(name) {
+	      var facts = package_facts[name] = PackageFacts(name);
+
+	      getPackage(facts).done(function() {
+	        // any data processing we want
+	        // Make Unique countries
+	        _.each(facts.pdata, function(entry) {
+	          if (_.indexOf(facts.countries, entry.country) === -1) {
+	            facts.countries.push(entry.country);
+	          }
+	        });
+	        if (!facts.name.localeCompare('targetedthreats')) {
+	          processTargetedThreats();
+
+						// make targeted threats default package shown
+	          active_package = facts;
+	          colorMap(active_package, active_package.color); // oh hello race condition
+	          $("#initial-dataset").addClass("active"); // bootstrap doesn't let you just put it in html as initially active
+	        }
+	      });
+	    });
+	  }
+
+	  function processTargetedThreats() {
+	    var threat_facts = package_facts.targetedthreats;
+	    var current_threat_facts = null;
+	    threat_facts.targets = [];
+	    _.each(threat_facts.pdata, function(entry) {
+	      if (_.indexOf(threat_facts.targets, entry.target) === -1) {
+	        threat_facts.targets.push(entry.target);
+	      }
+	    });
+	    _.map(threat_facts.targets, function(target_name) {
+	      current_threat_facts = threat_facts.subpackages[target_name] = makeSubpackage(target_name, threat_facts.pdata, { 'target': target_name });
+	      current_threat_facts.color = primaryFill;
+	      _.each(current_threat_facts.pdata, function(entry) {
+	        if (_.indexOf(current_threat_facts.countries, entry.country) === -1) {
+	          current_threat_facts.countries.push(entry.country);
+	        }
+	      });
+	    });
+	  }
+
+	  // we can select a subset of a _package based on properties {}
+	  function makeSubpackage(name, data, properties) {
+	    var subpackage = PackageFacts(name);
+	    subpackage.pdata = _.filter(data, properties);
+	    return subpackage;
+	  }
+
+	  var getPackage = function(facts) {
+	    var res = $.ajax({
+	      url: url_api + facts.name,
+	      crossDomain: true,
+	      dataType: "jsonp",
+	      jsonp: 'callback',
+	    });
+	    res.done(function(response) {
+	      facts.pdata = response.result;
+	    });
+	    res.error(function() {
+	      facts.loadError = true;
+	    });
+	    res.always(function() {
+	    // todo: final render?
+	    });
+	    return res;
+	  };
+
+	  var showDataRegion = function(region, _package) {
+	    var view_template = _.template($('#view-' + _package).html());
+	    var view_output = '';
+
+	    _.each(package_facts[_package].pdata, function(entry) {
+	      if (entry.country === region) {
+	        var package_view = view_template(entry);
+	        view_output += package_view;
+	      }
+	    });
+
+	    if (view_output) {
+	      $('#' + _package).html('<p>&nbsp;</p><ul>' + view_output + '</ul>');
+	    } else {
+	      $('#' + _package).html('<h4>No ' + _package + ' data found</h4>');
+	    }
+	  };
+
+	  var showTab = function(tab) {
+	    var $tab = $('#modal').find('a[href=#' + tab + ']');
+	    if ($tab.length === 0) {
+	    // TODO: This fallback should be replaced with code that can handle
+	    // the targetedthreats sub types (activist, journalist, ...)
+	      tab = 'targetedthreats';
+	      $tab = $('#modal').find('a[href=#' + tab + ']');
+	    }
+	    showDataRegion(current_country, tab);
+	    $tab.tab('show');
+	  };
+
+	  var showCountry = function(country) {
+	    current_country = country;
+	    var map = $('#map').vectorMap('get', 'mapObject');
+	    $('#modal').modal();
+	    $('#modal').find('.modal-title').html('Results for: ' + map.getRegionName(country));
+	    showTab(active_package.name);
+	  };
+
+	  var showToc = function(data) {
+	    var html_packages = '';
+	    var template_packages = _.template($('#view-datapackages').html());
+
+	    _.each(data.result, function(_package) {
+	      html_packages += template_packages(_package);
+	    });
+
+	    $('#datapackages').html(html_packages);
+	  };
+
+	  var showDataTable = function(_package) {
+	    var package_details = _.findWhere(datasets_toc, { data_package: _package });
+	    var this_package = package_facts[_package.replace(prefix, '')].pdata;
+
+	    if (this_package) {
+	      // Show / Hide HTML
+	      $('#datapackages-details').hide();
+	      $('#datapackages').hide();
+	      $('#datapackages-title').find('h1').html('Dataset: ' + package_details.name);
+	      $('#datapackages-title').find('p').html(package_details.description);
+	      $('#show-datasets-toc').removeClass('hidden');
+	      $('#datatable').show();
+
+	      // Build Objects / Render Datatable
+	      var keys = _.keys(this_package[0]);
+	      var titles = [];
+	      _.each(keys, function(entry) {
+	        titles.push({ title: entry });
+	      });
+
+	      var data_set = [];
+	      _.each(this_package, function(entry) {
+	        data_set.push(_.values(entry));
+	      });
+
+	      datatable = $('#datatable').DataTable({
+	        data: data_set,
+	        columns: titles
+	      });
+	    }
+	  };
+
+	  var showPackages = function() {
+	    $.ajax({
+	      url: url_api,
+	      crossDomain: true,
+	      dataType: "jsonp",
+	      jsonp: 'callback',
+	      success: function(data) {
+	        showToc(data);
+	        datasets_toc = data.result;
+	      }
+	    });
+	  };
+
+
+	  function colorMap(package_obj, color) {
+	    var regionValues = {};
+	    var map = $('#map').vectorMap('get', 'mapObject');
+
+	    _.each(package_obj.countries, function(country) {
+	      regionValues[country] = color;
+	    });
+
+	    map.series.regions[0].setValues(regionValues);
+	  }
+
+	  $(document).on('click', 'a.show-dataset', function(e) {
+	    e.preventDefault();
+	    showDataTable($(this).attr('href').replace('#', ''));
+	  });
+
+	  $(document).on('click', '#show-datasets-toc', function(e) {
+	    e.preventDefault();
+	    $(this).addClass('hidden');
+	    datatable.destroy();
+	    $('#datatable').html('');
+	    $('#datapackages-title').find('h1').html('Our Datasets');
+	    $('#datapackages-title').find('p').html('');
+	    $('#datapackages-details').show();
+	    $('#datapackages').show();
+	  });
+
+	  $(document).ready(function() {
+	    // Load data based on pages
+	    if ($('#map').length || $('#datapackages').length) {
+	      initPackageFacts();
+	    }
+
+	    if ($('#datapackages').length) {
+	      showPackages();
+	    }
+
+	    if ($('#map').length) {
+	      $('#map').vectorMap({
+	        map: 'world_mill',
+	        backgroundColor: '#ffffff',
+	        markersSelectable: true,
+	        markers: {
+	          "BH": { latLng: [26.02, 50.55], name: 'Bahrain' }
+	        },
+	        series: {
+	          regions: [{ attribute: 'fill' }]
+	        },
+	        regionStyle: {
+	          initial: {
+	            fill: defaultFill,
+	            "fill-opacity": 1,
+	            stroke: 'none',
+	            "stroke-width": 0,
+	            "stroke-opacity": 1
+	          },
+	          hover: {
+	            "fill-opacity": 0.8,
+	            "cursor": 'pointer'
+	          },
+	          selected: {
+	            fill: 'yellow'
+	          },
+	          selectedHover: {
+	            fill: 'yellow'
+	          }
+	        },
+	        // Tiny countries like Bahrain are rendered as markers. Not regions.
+	        markerStyle: {
+	          initial: {
+	            fill: defaultFill,
+	            stroke: 'none',
+	          },
+	          selected: {
+	            fill: 'yellow'
+	          }
+	        },
+	        onRegionClick: function(event, country) {
+	          showCountry(country);
+	        },
+	        onMarkerClick: function(event, country) {
+	          showCountry(country);
+	        }
+	      });
+	    }
+
+
+	    $('#country-tabs a').click(function(e) {
+	      var tab = $(this).attr('href').replace('#', '');
+	      e.preventDefault();
+	      showTab(tab);
+	    });
+
+	    $("[class='target-selector'] > a").click(function(e) {
+	      e.preventDefault();
+	      $(this).tab('show');
+	      colorMap(active_package, defaultFill);
+	      colorMap(package_facts.targetedthreats, secondaryFill);
+	      var selection = $(this).attr('href').replace('#', '');
+	      active_package = package_facts.targetedthreats.subpackages[selection];
+	      colorMap(active_package, active_package.color);
+	    });
+
+	    $("[class='dataset-selector'] > a").click(function(e) {
+	      e.preventDefault();
+	      $(this).tab('show');
+	      $(".target-selector").removeClass("active"); // tt submenu is no longer active if a dataset has been hit
+	      colorMap(package_facts.targetedthreats, defaultFill); // super hacked... not that everything else isn't...
+	      colorMap(active_package, defaultFill);
+	      var selection = $(this).attr('href').replace('#', '');
+	      active_package = package_facts[selection];
+	      colorMap(active_package, active_package.color);
+	      if ($(this).is("#tt-toggle")) {
+	        $("#target-selections>ul").removeClass("hide");
+	      } else {
+	        $("#target-selections>ul").addClass("hide");
+	      }
+	    });
+	  });
+	}
+
+	module.exports = Map;
+
+
+/***/ }
+/******/ ]);
