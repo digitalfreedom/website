@@ -33,43 +33,45 @@ function Map() {
     };
   }
 
-  function init_package_facts() {
-    _.each(datasets, function(name, key) {
+  function initPackageFacts() {
+    _.each(datasets, function(name) {
       var facts = package_facts[name] = PackageFacts(name);
 
       getPackage(facts).done(function() {
         // any data processing we want
         // Make Unique countries
-        _.each(facts.pdata, function(item, key) {
-          if (_.indexOf(facts.countries, item.country) === -1) {
-            facts.countries.push(item.country);
+        _.each(facts.pdata, function(entry) {
+          if (_.indexOf(facts.countries, entry.country) === -1) {
+            facts.countries.push(entry.country);
           }
         });
         if (!facts.name.localeCompare('targetedthreats')) {
           processTargetedThreats();
+
+					// make targeted threats default package shown
           active_package = facts;
-          color_map(active_package, active_package.color); //oh hello race condition
-          $("#initial-dataset").addClass("active"); //bootstrap doesn't let you just put it in html as initially active
+          colorMap(active_package, active_package.color); // oh hello race condition
+          $("#initial-dataset").addClass("active"); // bootstrap doesn't let you just put it in html as initially active
         }
       });
     });
   }
 
   function processTargetedThreats() {
-    var threat_facts = package_facts['targetedthreats'];
+    var threat_facts = package_facts.targetedthreats;
     var current_threat_facts = null;
-    threat_facts['targets'] = [];
-    _.each(threat_facts.pdata, function(item, key) {
-      if (_.indexOf(threat_facts.targets, item.target) === -1) {
-        threat_facts.targets.push(item.target);
+    threat_facts.targets = [];
+    _.each(threat_facts.pdata, function(entry) {
+      if (_.indexOf(threat_facts.targets, entry.target) === -1) {
+        threat_facts.targets.push(entry.target);
       }
     });
     _.map(threat_facts.targets, function(target_name) {
-      current_threat_facts = threat_facts.subpackages[target_name] = makeSubpackage(target_name, threat_facts.pdata, {'target' : target_name});
+      current_threat_facts = threat_facts.subpackages[target_name] = makeSubpackage(target_name, threat_facts.pdata, { 'target': target_name });
       current_threat_facts.color = primaryFill;
-      _.each(current_threat_facts.pdata, function(item, key) {
-        if (_.indexOf(current_threat_facts.countries, item.country) === -1) {
-          current_threat_facts.countries.push(item.country);
+      _.each(current_threat_facts.pdata, function(entry) {
+        if (_.indexOf(current_threat_facts.countries, entry.country) === -1) {
+          current_threat_facts.countries.push(entry.country);
         }
       });
     });
@@ -105,9 +107,9 @@ function Map() {
     var view_template = _.template($('#view-' + _package).html());
     var view_output = '';
 
-    _.each(package_facts[_package].pdata, function(item, key) {
-      if (item.country === region) {
-        var package_view = view_template(item);
+    _.each(package_facts[_package].pdata, function(entry) {
+      if (entry.country === region) {
+        var package_view = view_template(entry);
         view_output += package_view;
       }
     });
@@ -119,31 +121,31 @@ function Map() {
     }
   };
 
-	var showTab = function(tab) {
-		var $tab = $('#modal').find('a[href=#' + tab + ']');
-		if ($tab.length === 0) {
-			// TODO: This fallback should be replaced with code that can handle
-			// the targetedthreats sub types (activist, journalist, ...)
-			tab = 'targetedthreats';
-			$tab = $('#modal').find('a[href=#' + tab + ']');
-		}
-		showDataRegion(current_country, tab);
-		$tab.tab('show');
-	}
-	
-	var showCountry = function(country) { 
+  var showTab = function(tab) {
+    var $tab = $('#modal').find('a[href=#' + tab + ']');
+    if ($tab.length === 0) {
+    // TODO: This fallback should be replaced with code that can handle
+    // the targetedthreats sub types (activist, journalist, ...)
+      tab = 'targetedthreats';
+      $tab = $('#modal').find('a[href=#' + tab + ']');
+    }
+    showDataRegion(current_country, tab);
+    $tab.tab('show');
+  };
+
+  var showCountry = function(country) {
     current_country = country;
     var map = $('#map').vectorMap('get', 'mapObject');
     $('#modal').modal();
     $('#modal').find('.modal-title').html('Results for: ' + map.getRegionName(country));
-		showTab(active_package.name);
-	}
+    showTab(active_package.name);
+  };
 
   var showToc = function(data) {
     var html_packages = '';
     var template_packages = _.template($('#view-datapackages').html());
 
-    _.each(data.result, function(_package, key) {
+    _.each(data.result, function(_package) {
       html_packages += template_packages(_package);
     });
 
@@ -166,12 +168,12 @@ function Map() {
       // Build Objects / Render Datatable
       var keys = _.keys(this_package[0]);
       var titles = [];
-      _.each(keys, function(item) {
-        titles.push({ title: item });
+      _.each(keys, function(entry) {
+        titles.push({ title: entry });
       });
 
       var data_set = [];
-      _.each(this_package, function(entry, key) {
+      _.each(this_package, function(entry) {
         data_set.push(_.values(entry));
       });
 
@@ -196,7 +198,7 @@ function Map() {
   };
 
 
-  function color_map(package_obj, color) {
+  function colorMap(package_obj, color) {
     var regionValues = {};
     var map = $('#map').vectorMap('get', 'mapObject');
 
@@ -226,7 +228,7 @@ function Map() {
   $(document).ready(function() {
     // Load data based on pages
     if ($('#map').length || $('#datapackages').length) {
-      init_package_facts();
+      initPackageFacts();
     }
 
     if ($('#datapackages').length) {
@@ -274,42 +276,40 @@ function Map() {
           }
         },
         onRegionClick: function(event, country) {
-					showCountry(country);
+          showCountry(country);
         },
         onMarkerClick: function(event, country) {
-					showCountry(country);
+          showCountry(country);
         }
       });
     }
 
 
     $('#country-tabs a').click(function(e) {
-			var tab = $(this).attr('href').replace('#', '');
+      var tab = $(this).attr('href').replace('#', '');
       e.preventDefault();
-			showTab(tab);
+      showTab(tab);
     });
 
     $("[class='target-selector'] > a").click(function(e) {
       e.preventDefault();
-      console.log(this);
       $(this).tab('show');
-      color_map(active_package, defaultFill);
-      color_map(package_facts['targetedthreats'], secondaryFill);
+      colorMap(active_package, defaultFill);
+      colorMap(package_facts.targetedthreats, secondaryFill);
       var selection = $(this).attr('href').replace('#', '');
-      active_package = package_facts['targetedthreats']['subpackages'][selection];
-      color_map(active_package, active_package.color);
+      active_package = package_facts.targetedthreats.subpackages[selection];
+      colorMap(active_package, active_package.color);
     });
 
-    $("[class='dataset-selector'] > a").click(function (e) {
+    $("[class='dataset-selector'] > a").click(function(e) {
       e.preventDefault();
-      console.log(this);
       $(this).tab('show');
       $(".target-selector").removeClass("active"); // tt submenu is no longer active if a dataset has been hit
-      color_map(package_facts['targetedthreats'], defaultFill); //super hacked... not that everything else isn't...
-      color_map(active_package, defaultFill);
-      var selection = $(this).attr('href').replace('#','');
+      colorMap(package_facts.targetedthreats, defaultFill); // super hacked... not that everything else isn't...
+      colorMap(active_package, defaultFill);
+      var selection = $(this).attr('href').replace('#', '');
       active_package = package_facts[selection];
-      color_map(active_package, active_package.color);
+      colorMap(active_package, active_package.color);
       if ($(this).is("#tt-toggle")) {
         $("#target-selections>ul").removeClass("hide");
       } else {
