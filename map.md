@@ -6,6 +6,8 @@ permalink: /map/
 
 <div class="row"><h1>Map</h1></div>
 
+<p>This map represent the geographical location of the target of the attack, at the moment it occurred. It does not represent the origin of the attacker.</p>
+
 <div id="selection-container">
 <div id="dataset-selections" class="row">
   <ul class="nav nav-tabs nav-justified darkgreen">
